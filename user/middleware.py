@@ -1,8 +1,17 @@
-from django.utils.timezone import now
+from django.utils import timezone
 from django.contrib.auth.models import User
 
-class SetLastVisitMiddleware(object):
-    def process_response(self, request, view_func,view_args,view_kwargs):
-        if request.user.is_authenticated():
-            User.objects.filter(user_id=request.user.id).update(last_visit=now())
+
+def last_user_activity_middleware(get_response):
+
+    def middleware(request):
+
+        response = get_response(request)
+
+        if request.user.is_authenticated:
+
+            User.objects.filter(username=request.user).update(last_login=timezone.now())
+
         return response
+
+    return middleware
