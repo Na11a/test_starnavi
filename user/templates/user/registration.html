@@ -1,0 +1,12 @@
+{%extends 'post/base.html'%}
+    {%block content%}
+    <h1 class = "mt-4">Registration</h1>
+    <p><a href={{tweets_list_url}}>Go Home</a></p>
+    <div class= "col-6">
+        <form id="add_form" method="post">
+            {% csrf_token %}
+        {{form}}
+        <button form = "add_form" type="submit" class="btn btn-primary mt-3">Sign Up</button>
+        </form>
+    </div>
+    {% endblock %}
