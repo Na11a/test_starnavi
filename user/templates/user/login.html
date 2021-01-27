@@ -1,0 +1,12 @@
+{%extends 'post/base.html'%}
+    {%block content%}
+    <h1 class = "mt-4">Authorization</h1>
+    <p><a href="#">Go Back</a></p>
+    <div class= "col-6">
+        <form id="add_form" method="post">
+            {% csrf_token %}
+        {{form}}
+        <button form = "add_form" type="submit" class="btn btn-primary mt-3">Sign In</button>
+        </form>
+    </div>
+    {% endblock %}

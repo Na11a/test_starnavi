@@ -1,0 +1,43 @@
+{%extends 'post/base.html'%}
+{% block content %}
+
+    <h1 class = "mb-5 mt-3">Posts:</h1>
+    {% for obj in posts %}
+    
+    <div class="card w-75 mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{obj.title}}</h5>
+          <p class="card-text">{{obj.body}}</p>
+          <div class="right floated">
+            <form action="{% url 'like-post-view' %}" method="POST" class='like-form' id='{{obj.id}}'>
+                {% csrf_token %}
+                <input type="hidden" name="post_id" value={{obj.id}}>
+                
+                    <button type="submit" class="ui button like-btn{{obj.id}}">
+                        {% if request.user not in obj.liked.all %}
+                            Like
+                        {% else %}
+                            Unlike
+                        {% endif %}
+                    </button>
+                    <div class="ui grid">
+                        <div class="column">
+                            <div class="like-count{{obj.id}}"> {{obj.num_likes}} </div>
+                        </div>
+                        <div class="column">
+                            likes
+                        </div>
+                    </div>
+            </form>
+        </div>
+        </div>
+        <div class="card-footer text-muted">
+            {{obj.created|date:"d.m.Y"}}
+            {{obj.author}}
+          </div>
+      </div>
+      
+    {% endfor %}
+
+{% endblock %}
+
